@@ -24,6 +24,17 @@ export const DataProvider = ({ children }) => {
     setCartItems((prv) => ({ ...prv, [itemId]: prv[itemId] - 1 }));
   };
 
+  const getTotalCartAmt = () => {
+    let totalAmt = 0;
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) {
+        let itemData = allFoods.find((data) => data._id === item);
+        totalAmt += itemData.price * cartItems[item];
+      }
+    }
+    return totalAmt;
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -33,6 +44,7 @@ export const DataProvider = ({ children }) => {
         setCartItems,
         addToCart,
         removeToCart,
+        getTotalCartAmt
       }}
     >
       {children}

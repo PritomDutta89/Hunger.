@@ -7,7 +7,7 @@ import { menu_list } from "../../assets/assets";
 const ExploreMenu = ({ category, setCategory }) => {
   return (
     <>
-      <div className="flex flex-col gap-3">
+      <div id="explore-menu" className="flex flex-col gap-3">
         <h1 className="mt-2 font-semibold text-[1.5rem] text-[#262626]">
           Explore our menu
         </h1>
@@ -33,7 +33,9 @@ const ExploreMenu = ({ category, setCategory }) => {
                 src={item.menu_image}
                 alt="icon"
                 className={`w-[5rem] md:w-[6rem] h-auto rounded-full cursor-pointer ${
-                  category === item.menu_name ? 'border-[4px] border-red-500 p-1' : ''
+                  category === item.menu_name
+                    ? "border-[4px] border-red-500 p-1"
+                    : ""
                 }`}
               />
               <p className="text-[#747474] text-[0.75rem] md:text-[1rem] mt-2 text-center cursor-pointer hover:text-gray-400">

@@ -5,10 +5,11 @@ import { assets } from "../../assets/assets";
 const Footer = () => {
   return (
     <>
-      <div className="text-[#d9d9d9] rounded-lg bg-[#323232] flex flex-col items-center p-[3rem] md:px-[6rem] mt-[3rem]">
+      <div id="explore-contact" className="text-[#d9d9d9] rounded-lg bg-[#323232] flex flex-col items-center p-[3rem] md:px-[6rem] mt-[3rem]">
         <div className="w-[100%] grid md:grid-cols-3 gap-[3rem] md:gap-[8rem]">
-          <div className="flex flex-col items-start gap-5 mt-2">
-            <img src={assets.logo} alt="" className="w-[8rem]" />
+          <div className="flex flex-col items-start gap-5">
+            {/* <img src={assets.logo} alt="" className="w-[8rem]" /> */}
+            <h1 className="font-extrabold text-[1.9rem] text-red-500">Hunger.</h1>
             <p className="w-[10rem]">
               Discover delicious meals with Hunger. 
             </p>
