@@ -2,9 +2,14 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { useDataContext } from "../../context/DataContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
-  const { allFoods, removeToCart, cartItems,getTotalCartAmt } = useDataContext();
+  const { allFoods, removeToCart, cartItems, getTotalCartAmt } =
+    useDataContext();
+  const navigate = useNavigate();
 
   return (
     <div className="mt-10">
@@ -113,17 +118,31 @@ const Cart = () => {
             <hr />
             <div className="flex justify-between my-2 text-[#555] text-[0.9rem]">
               <p>Delivery Fee</p>
-              <p>$5</p>
+              <p>${getTotalCartAmt() > 0 ? 5 : 0}</p>
             </div>
             <hr />
             <div className="flex justify-between my-2 font-semibold text-[0.9rem]">
               <p>Total</p>
-              <p>${getTotalCartAmt()+5}</p>
+              <p>${getTotalCartAmt() + (getTotalCartAmt() > 0 ? 5 : 0)}</p>
             </div>
           </div>
           <button
             type="button"
             className="text-white mt-6 bg-red-500 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+            onClick={() =>
+              getTotalCartAmt() > 0
+                ? navigate("/order")
+                : toast.warn("Please add some item", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                  })
+            }
           >
             PROCEED TO CHECKOUT
           </button>

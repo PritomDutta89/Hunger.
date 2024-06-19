@@ -8,6 +8,8 @@ import PlaceOrder from "./pages/placed-order/PlaceOrder";
 import { DataProvider } from "./context/DataContext";
 import Footer from "./components/footer/Footer";
 import LoginPopUp from "./components/login-popup/LoginPopUp";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -25,6 +27,7 @@ const App = () => {
           </Routes>
           <Footer />
         </DataProvider>
+        <ToastContainer />
       </div>
     </>
   );
