@@ -1,9 +1,23 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const LoginPopUp = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("Login");
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const onChangeHandler = (event) => {
+    setData((prv) => ({ ...prv, [event.target.name]: event.target.value }));
+  };
+
+  const onLogin = async (e) => {
+     e.preventDefault();
+     
+  };
 
   return (
     <>
@@ -46,21 +60,23 @@ const LoginPopUp = ({ setShowLogin }) => {
               </button>
             </div>
             <div className="p-4 md:p-5">
-              <form className="space-y-4" action="#">
+              <form className="space-y-4" onSubmit={onLogin}>
                 {currState !== "Login" && (
                   <div>
                     <label
-                      htmlFor="email"
+                      htmlFor="name"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Your Name
                     </label>
                     <input
-                      type="email"
-                      name="email"
-                      id="email"
+                      type="text"
+                      name="name"
+                      id="name"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                       placeholder="Your Name"
+                      value={data.name}
+                      onChange={onChangeHandler}
                       required
                     />
                   </div>
@@ -78,6 +94,8 @@ const LoginPopUp = ({ setShowLogin }) => {
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     placeholder="name@company.com"
+                    value={data.email}
+                    onChange={onChangeHandler}
                     required
                   />
                 </div>
@@ -94,6 +112,8 @@ const LoginPopUp = ({ setShowLogin }) => {
                     id="password"
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    value={data.password}
+                    onChange={onChangeHandler}
                     required
                   />
                 </div>
