@@ -1,14 +1,32 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDataContext } from "../../context/DataContext";
+import { toast } from "react-toastify";
 
 const Navbar = ({ setShowLogin }) => {
   const [animation, setAnimation] = useState("Home");
   const [toggle, setToggle] = useState(false);
-  const { getTotalCartAmt } = useDataContext();
+  const { getTotalCartAmt, token, setToken } = useDataContext();
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+    toast.success("Logout Successfully!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   return (
     <>
@@ -20,8 +38,8 @@ const Navbar = ({ setShowLogin }) => {
               alt="icon"
               className="w-[5rem] md:w-[7rem]"
             /> */}
-            <Link to='/'>
-              <h1 className="font-extrabold text-[1.9rem] text-red-500">
+            <Link to="/">
+              <h1 className="font-extrabold text-[1.5rem] md:text-[1.9rem] text-red-500">
                 Hunger.
               </h1>
             </Link>
@@ -65,16 +83,47 @@ const Navbar = ({ setShowLogin }) => {
                   className="w-[1.3rem] h-[1.3rem] cursor-pointer"
                 />
               </Link>
-              {getTotalCartAmt() > 0 && <div className="absolute w-1 h-1 bg-orange-600 rounded-full top-[-0.00001rem] left-5"></div>}
+              {getTotalCartAmt() > 0 && (
+                <div className="absolute w-1 h-1 bg-orange-600 rounded-full top-[-0.00001rem] left-5"></div>
+              )}
             </div>
 
-            <button
-              type="button"
-              className="mr-3 text-gray-800 border border-orange-500 hover:bg-[#fff4f2] transition duration-0.3  font-medium rounded-full text-xs px-3 md:px-6 py-1 md:py-2.5  text-center"
-              onClick={() => setShowLogin(true)}
-            >
-              Sign In
-            </button>
+            {!token ? (
+              <button
+                type="button"
+                className="mr-3 text-gray-800 border border-orange-500 hover:bg-[#fff4f2] transition duration-0.3  font-medium rounded-full text-xs px-3 md:px-6 py-1 md:py-2.5  text-center"
+                onClick={() => setShowLogin(true)}
+              >
+                Sign In
+              </button>
+            ) : (
+              // <div className="flex items-center mr-4">
+              //   <img
+              //     src={assets.profile_icon}
+              //     alt="icon"
+              //     className="w-[1.3rem]"
+              //   />
+              // </div>
+              // <div className="relative inline-flex items-center mr-4 justify-center w-9 h-9 overflow-hidden bg-[#673ab7] rounded-full dark:bg-gray-600">
+              //   <span className="font-medium text-white">
+              //     JL
+              //   </span>
+              // </div>
+              <div className="relative w-9 h-9 mr-4 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                <svg
+                  className="absolute w-11 h-11 text-gray-400 -left-1"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+            )}
 
             <button
               data-collapse-toggle="navbar-hamburger"
@@ -104,7 +153,10 @@ const Navbar = ({ setShowLogin }) => {
           </div>
 
           {toggle && (
-            <div className=" w-full" id="navbar-hamburger">
+            <div
+              className="absolute top-[3.5rem] md:top-[4rem] right-[0rem] w-full"
+              id="navbar-hamburger"
+            >
               <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
                 <Link
                   to="/"
@@ -142,6 +194,20 @@ const Navbar = ({ setShowLogin }) => {
                 >
                   Mobile App
                 </a>
+                {token && (
+                  <a
+                    href="#explore-mobile-app"
+                    className={`block cursor-pointer py-2 px-3 text-gray-700 rounded ${
+                      animation === "Order" ? "bg-orange-200" : ""
+                    } hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white`}
+                    onClick={() => {
+                      setAnimation("Order");
+                      setToggle(!toggle);
+                    }}
+                  >
+                    My Order
+                  </a>
+                )}
                 <a
                   href="#explore-contact"
                   className={`block cursor-pointer py-2 px-3 text-gray-700 rounded ${
@@ -154,6 +220,20 @@ const Navbar = ({ setShowLogin }) => {
                 >
                   Contact Us
                 </a>
+                {token && (
+                  <div
+                    className={`block cursor-pointer py-2 px-3 text-gray-700 rounded ${
+                      animation === "Logout" ? "bg-orange-200" : ""
+                    } hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white`}
+                    onClick={() => {
+                      setAnimation("Logout");
+                      setToggle(!toggle);
+                      handleLogout();
+                    }}
+                  >
+                    Logout
+                  </div>
+                )}
               </ul>
             </div>
           )}

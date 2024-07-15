@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
+import { LoginApi, RegisterApi } from "../../services/LoginApi";
+import { useDataContext } from "../../context/DataContext";
+import { toast } from "react-toastify";
 
 const LoginPopUp = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("Login");
@@ -9,14 +12,77 @@ const LoginPopUp = ({ setShowLogin }) => {
     email: "",
     password: "",
   });
+  const { token, setToken } = useDataContext();
 
   const onChangeHandler = (event) => {
     setData((prv) => ({ ...prv, [event.target.name]: event.target.value }));
   };
 
   const onLogin = async (e) => {
-     e.preventDefault();
-     
+    e.preventDefault();
+
+    if (currState === "Login") {
+      const res = await LoginApi(data);
+
+      if (res.data.success) {
+        console.log("login: ", res);
+        setToken(res.data.token);
+        localStorage.setItem("token", res.data.token);
+        setShowLogin(false);
+
+        toast.success("Login Successfully!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error("Please try again.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } else if (currState === "Signin") {
+      const res = await RegisterApi(data);
+
+      if (res.data.success) {
+        setToken(res.data.token);
+        localStorage.setItem("token: ", res.data.token);
+        setShowLogin(false);
+
+        toast.success("Login Successfully!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error("Please try again.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    }
   };
 
   return (
@@ -118,8 +184,8 @@ const LoginPopUp = ({ setShowLogin }) => {
                   />
                 </div>
                 {currState === "Login" && (
-                  <div className="flex justify-between">
-                    <div className="flex items-start">
+                  <div className="flex justify-end">
+                    {/* <div className="flex items-start">
                       <div className="flex items-center h-5">
                         <input
                           id="remember"
@@ -135,7 +201,7 @@ const LoginPopUp = ({ setShowLogin }) => {
                       >
                         Remember me
                       </label>
-                    </div>
+                    </div> */}
                     <a href="#" className="text-sm text-red-500 ">
                       Lost Password?
                     </a>
