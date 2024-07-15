@@ -16,9 +16,9 @@ const App = () => {
 
   return (
     <>
-      {showLogin && <LoginPopUp setShowLogin={setShowLogin} />}
-      <div className="p-0 box-border min-h-[100vh] text-inherit w-[90%] m-auto">
-        <DataProvider>
+      <DataProvider>
+        {showLogin && <LoginPopUp setShowLogin={setShowLogin} />}
+        <div className="p-0 box-border min-h-[100vh] text-inherit w-[90%] m-auto">
           <Navbar setShowLogin={setShowLogin} />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -26,9 +26,10 @@ const App = () => {
             <Route path="/order" element={<PlaceOrder />} />
           </Routes>
           <Footer />
-        </DataProvider>
-        <ToastContainer />
-      </div>
+
+          <ToastContainer />
+        </div>
+      </DataProvider>
     </>
   );
 };
