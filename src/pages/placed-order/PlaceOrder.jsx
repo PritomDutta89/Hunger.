@@ -38,18 +38,18 @@ const PlaceOrder = () => {
       }
     });
 
-    console.log("orderItems: ", orderItems);
     let orderData = {
-      address:data,
-      items:orderItems,
-      amount:getTotalCartAmt()+5,
-    }
+      address: data,
+      items: orderItems,
+      amount: getTotalCartAmt() + 5,
+    };
 
-    console.log("orderData: ", orderData)
     // call api
     const res = await placeOrderApi(orderData, token);
+    // const res = await placeOrderApi();
 
-    console.log("res: ", res)
+    console.log("res: ", res?.data?.url);
+    window.location.href = res?.data?.url;
   };
 
   return (

@@ -46,7 +46,6 @@ export async function getCartDataApi(token) {
 
 export async function placeOrderApi(orderData, token) {
   try {
-    console.log("trigg: ", orderData)
     const url = `http://localhost:4000/api/order/place`;
     const res = await axios.post(url, orderData, { headers: { token } });
 
