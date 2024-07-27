@@ -54,3 +54,14 @@ export async function placeOrderApi(orderData, token) {
     console.log(error);
   }
 }
+
+export async function verifyOrderApi(success, orderId) {
+  try {
+    const url = `http://localhost:4000/api/order/verify`;
+    const res = await axios.post(url, {success, orderId});
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+}
