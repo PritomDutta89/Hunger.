@@ -65,3 +65,14 @@ export async function verifyOrderApi(success, orderId) {
     console.log(error);
   }
 }
+
+export async function userOrdersApi(token) {
+  try {
+    const url = `http://localhost:4000/api/order/userorders`;
+    const res = await axios.post(url, {}, { headers: { token } });
+
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
