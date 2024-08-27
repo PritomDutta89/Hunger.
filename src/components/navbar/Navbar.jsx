@@ -195,18 +195,18 @@ const Navbar = ({ setShowLogin }) => {
                   Mobile App
                 </a>
                 {token && (
-                  <a
-                    href="#explore-mobile-app"
+                  <p
                     className={`block cursor-pointer py-2 px-3 text-gray-700 rounded ${
                       animation === "Order" ? "bg-orange-200" : ""
                     } hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white`}
                     onClick={() => {
                       setAnimation("Order");
                       setToggle(!toggle);
+                      navigate("/myOrders");
                     }}
                   >
                     My Order
-                  </a>
+                  </p>
                 )}
                 <a
                   href="#explore-contact"

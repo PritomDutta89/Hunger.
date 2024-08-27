@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDataContext } from "../../context/DataContext";
 import { placeOrderApi } from "../../services/AllApi";
+import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
   // eslint-disable-next-line no-unused-vars
@@ -17,11 +18,13 @@ const PlaceOrder = () => {
     country: "",
     phone: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("cartItems: ", cartItems);
-    console.log("allFoods: ", allFoods);
-  }, [cartItems, allFoods]);
+    if (!token || getTotalCartAmt() === 0) {
+      navigate("/cart");
+    }
+  }, [token]);
 
   const onChangeHandler = (event) => {
     setData((prv) => ({ ...prv, [event.target.name]: event.target.value }));
@@ -48,7 +51,6 @@ const PlaceOrder = () => {
     const res = await placeOrderApi(orderData, token);
     // const res = await placeOrderApi();
 
-    console.log("res: ", res?.data?.url);
     window.location.href = res?.data?.url;
   };
 
