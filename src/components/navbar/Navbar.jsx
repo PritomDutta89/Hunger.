@@ -9,8 +9,27 @@ import { toast } from "react-toastify";
 const Navbar = ({ setShowLogin }) => {
   const [animation, setAnimation] = useState("Home");
   const [toggle, setToggle] = useState(false);
-  const { getTotalCartAmt, token, setToken } = useDataContext();
+  const [searchQuery, setSearchQuery] = useState("");
+  const {
+    getTotalCartAmt,
+    token,
+    setToken,
+    filteredAllFoods,
+    setFilteredAllFoods,
+    allFoods,
+  } = useDataContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      const filterData = allFoods.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredAllFoods(filterData);
+    } else {
+      setFilteredAllFoods(allFoods);
+    }
+  }, [allFoods, searchQuery]);
 
   const handleLogout = (e) => {
     localStorage.removeItem("token");
@@ -27,6 +46,17 @@ const Navbar = ({ setShowLogin }) => {
       theme: "light",
     });
   };
+
+  // const handleSearch = (value) => {
+  //   if (value.trim()) {
+  //     const filterData = allFoods.map((item, index) => {
+  //       return item?.name?.toLowerCase().includes(value.toLowerCase());
+  //     });
+  //     setFilteredAllFoods(filterData);
+  //   } else {
+  //     setFilteredAllFoods(allFoods);
+  //   }
+  // };
 
   return (
     <>
@@ -69,6 +99,8 @@ const Navbar = ({ setShowLogin }) => {
                 id="default-search"
                 className="block w-full p-3 ps-10 text-xs text-gray-900 border border-gray-300 rounded-full bg-gray-50 outline-none focus:ring-orange-500 focus:border-orange-500 "
                 placeholder="Search foods..."
+                onChange={(e) => setSearchQuery(e.target.value)}
+                value={searchQuery}
                 required
               />
             </div>
@@ -154,7 +186,7 @@ const Navbar = ({ setShowLogin }) => {
 
           {toggle && (
             <div
-              className="absolute top-[3.5rem] md:top-[4rem] right-[0rem] w-full"
+              className="absolute top-[3.5rem] md:top-[3.8rem] right-[0rem] w-full"
               id="navbar-hamburger"
             >
               <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
