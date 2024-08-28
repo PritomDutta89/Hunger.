@@ -61,7 +61,7 @@ export const DataProvider = ({ children }) => {
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
         let itemData = allFoods.find((data) => data._id === item);
-        totalAmt += itemData.price * cartItems[item];
+        totalAmt += (itemData?.price ? itemData?.price : 0) * cartItems[item];
       }
     }
     return totalAmt;
@@ -76,7 +76,7 @@ export const DataProvider = ({ children }) => {
     setLoaderFoodList(true);
     const res = await getFoodList();
     setAllFoods(res?.data?.data ? res?.data?.data : []);
-    setFilteredAllFoods(res?.data?.data ? res?.data?.data : [])
+    setFilteredAllFoods(res?.data?.data ? res?.data?.data : []);
     setLoaderFoodList(false);
   };
 

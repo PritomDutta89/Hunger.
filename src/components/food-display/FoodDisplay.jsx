@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDataContext } from "../../context/DataContext";
 import FoodItem from "../food-item/FoodItem";
 import { Oval } from "react-loader-spinner";
@@ -9,17 +9,62 @@ import { Oval } from "react-loader-spinner";
 const FoodDisplay = ({ category }) => {
   const { allFoods, loaderFoodList, filteredAllFoods, setFilteredAllFoods } =
     useDataContext();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      const filterData = allFoods.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredAllFoods(filterData);
+    } else {
+      setFilteredAllFoods(allFoods);
+    }
+  }, [allFoods, searchQuery]);
 
   return (
     <>
       <div>
-        <p className="mt-2 font-semibold text-[1.5rem] text-[#262626]">
-          Top Dishes Near You
-        </p>
+        <div className="flex flex-col md:flex-row md:justify-between items-center gap-4 md:gap-0">
+          <p className="mt-2 font-semibold text-[1.5rem] text-[#262626]">
+            Top Dishes Near You
+          </p>
+
+          {/* <form className="max-w-md mx-auto hidden md:block"> */}
+          <div className="relative w-[13rem]">
+            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="search"
+              id="default-search"
+              className="block w-full p-3 ps-10 text-xs text-gray-900 border border-gray-300 rounded-full bg-gray-50 outline-none focus:ring-orange-500 focus:border-orange-500 "
+              placeholder="Search by name..."
+              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchQuery}
+              required
+            />
+          </div>
+          {/* </form> */}
+        </div>
 
         {!loaderFoodList ? (
           filteredAllFoods.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-4 ">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
               {filteredAllFoods.map(
                 (item, index) =>
                   (category === "All" || item.category === category) && (
@@ -45,6 +90,53 @@ const FoodDisplay = ({ category }) => {
             />
           </div>
         )}
+
+        {/* pagination */}
+        <div className="flex mt-[2rem] justify-center">
+          <a
+            href="#"
+            className="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-gray-500 bg-white border border-orange-500 rounded-lg hover:bg-[#fff4f2] hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            <svg
+              className="w-3.5 h-3.5 me-2 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 5H1m0 0 4 4M1 5l4-4"
+              />
+            </svg>
+            Previous
+          </a>
+          <a
+            href="#"
+            className="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-orange-500 rounded-lg hover:bg-[#fff4f2] hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            Next
+            <svg
+              className="w-3.5 h-3.5 ms-2 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9"
+              />
+            </svg>
+          </a>
+        </div>
+      
       </div>
     </>
   );

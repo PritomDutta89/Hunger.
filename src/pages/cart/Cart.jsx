@@ -52,7 +52,8 @@ const Cart = () => {
                         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                       >
                         <img
-                          src={`${BASE_URL}/images/${item.image}`}
+                          // src={`${BASE_URL}/images/${item.image}`}
+                          src={item.image}
                           alt="icon"
                           className="w-[4rem] rounded-md"
                         />

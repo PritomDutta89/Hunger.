@@ -16,7 +16,8 @@ const FoodItem = ({ item }) => {
         <img
           className="rounded-t-lg w-full h-[15rem] rounded-3xl"
           // eslint-disable-next-line react/prop-types
-          src={`${BASE_URL}/images/${item.image}`}
+          // src={`${BASE_URL}/images/${item.image}`}
+          src={item.image}
           alt=""
         />
         {!cartItems[item._id] ? (

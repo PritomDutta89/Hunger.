@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const Navbar = ({ setShowLogin }) => {
   const [animation, setAnimation] = useState("Home");
   const [toggle, setToggle] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
   const {
     getTotalCartAmt,
     token,
@@ -20,16 +20,16 @@ const Navbar = ({ setShowLogin }) => {
   } = useDataContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (searchQuery.trim()) {
-      const filterData = allFoods.filter((item) =>
-        item.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredAllFoods(filterData);
-    } else {
-      setFilteredAllFoods(allFoods);
-    }
-  }, [allFoods, searchQuery]);
+  // useEffect(() => {
+  //   if (searchQuery.trim()) {
+  //     const filterData = allFoods.filter((item) =>
+  //       item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  //     );
+  //     setFilteredAllFoods(filterData);
+  //   } else {
+  //     setFilteredAllFoods(allFoods);
+  //   }
+  // }, [allFoods, searchQuery]);
 
   const handleLogout = (e) => {
     localStorage.removeItem("token");
@@ -47,27 +47,11 @@ const Navbar = ({ setShowLogin }) => {
     });
   };
 
-  // const handleSearch = (value) => {
-  //   if (value.trim()) {
-  //     const filterData = allFoods.map((item, index) => {
-  //       return item?.name?.toLowerCase().includes(value.toLowerCase());
-  //     });
-  //     setFilteredAllFoods(filterData);
-  //   } else {
-  //     setFilteredAllFoods(allFoods);
-  //   }
-  // };
-
   return (
     <>
       <nav className="sticky top-0 z-10 border-gray-200 bg-gray-50  dark:bg-gray-800 dark:border-gray-700">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <div>
-            {/* <img
-              src={assets.logo}
-              alt="icon"
-              className="w-[5rem] md:w-[7rem]"
-            /> */}
             <Link to="/">
               <h1 className="font-extrabold text-[1.5rem] md:text-[1.9rem] text-red-500">
                 Hunger.
@@ -75,7 +59,7 @@ const Navbar = ({ setShowLogin }) => {
             </Link>
           </div>
 
-          <form className="max-w-md mx-auto hidden md:block">
+          {/* <form className="max-w-md mx-auto hidden md:block">
             <div className="relative">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg
@@ -104,7 +88,7 @@ const Navbar = ({ setShowLogin }) => {
                 required
               />
             </div>
-          </form>
+          </form> */}
 
           <div className="flex items-center justify-center">
             <div className="relative mr-4">
