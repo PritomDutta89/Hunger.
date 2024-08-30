@@ -107,7 +107,7 @@ const FoodDisplay = ({ category }) => {
         )}
 
         {/* pagination */}
-        <div className="flex mt-[2rem] justify-between items-center">
+        <div className="flex flex-col md:flex-row gap-3 mt-[2rem] justify-between items-center">
           <div>
             <p className="text-gray-400 text-sm">Page No {currentPage}</p>
           </div>
