@@ -15,6 +15,8 @@ const DataContext = createContext();
 export const DataProvider = ({ children }) => {
   // const [allFoods, setAllFoods] = useState(food_list);
   const [allFoods, setAllFoods] = useState([]);
+  const [filteredAllFoods, setFilteredAllFoods] = useState([]);
+  const [loaderFoodList, setLoaderFoodList] = useState(true);
 
   // Manage cart items
   const [cartItems, setCartItems] = useState({});
@@ -59,7 +61,7 @@ export const DataProvider = ({ children }) => {
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
         let itemData = allFoods.find((data) => data._id === item);
-        totalAmt += itemData.price * cartItems[item];
+        totalAmt += (itemData?.price ? itemData?.price : 0) * cartItems[item];
       }
     }
     return totalAmt;
@@ -71,10 +73,11 @@ export const DataProvider = ({ children }) => {
   };
 
   const fetchFoodList = async () => {
+    setLoaderFoodList(true);
     const res = await getFoodList();
-    if (res?.data?.success) {
-      setAllFoods(res?.data?.data);
-    }
+    setAllFoods(res?.data?.data ? res?.data?.data : []);
+    setFilteredAllFoods(res?.data?.data ? res?.data?.data : []);
+    setLoaderFoodList(false);
   };
 
   return (
@@ -82,6 +85,9 @@ export const DataProvider = ({ children }) => {
       value={{
         allFoods,
         setAllFoods,
+        loaderFoodList,
+        filteredAllFoods,
+        setFilteredAllFoods,
         cartItems,
         setCartItems,
         addToCart,

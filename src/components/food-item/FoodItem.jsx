@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import { useDataContext } from "../../context/DataContext";
+import { BASE_URL } from "../../services/helper";
 
 // eslint-disable-next-line react/prop-types
 const FoodItem = ({ item }) => {
@@ -15,7 +16,8 @@ const FoodItem = ({ item }) => {
         <img
           className="rounded-t-lg w-full h-[15rem] rounded-3xl"
           // eslint-disable-next-line react/prop-types
-          src={`http://localhost:4000/images/${item.image}`}
+          // src={`${BASE_URL}/images/${item.image}`}
+          src={item.image}
           alt=""
         />
         {!cartItems[item._id] ? (

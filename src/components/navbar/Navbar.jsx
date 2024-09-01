@@ -9,8 +9,27 @@ import { toast } from "react-toastify";
 const Navbar = ({ setShowLogin }) => {
   const [animation, setAnimation] = useState("Home");
   const [toggle, setToggle] = useState(false);
-  const { getTotalCartAmt, token, setToken } = useDataContext();
+  // const [searchQuery, setSearchQuery] = useState("");
+  const {
+    getTotalCartAmt,
+    token,
+    setToken,
+    filteredAllFoods,
+    setFilteredAllFoods,
+    allFoods,
+  } = useDataContext();
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (searchQuery.trim()) {
+  //     const filterData = allFoods.filter((item) =>
+  //       item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  //     );
+  //     setFilteredAllFoods(filterData);
+  //   } else {
+  //     setFilteredAllFoods(allFoods);
+  //   }
+  // }, [allFoods, searchQuery]);
 
   const handleLogout = (e) => {
     localStorage.removeItem("token");
@@ -33,11 +52,6 @@ const Navbar = ({ setShowLogin }) => {
       <nav className="sticky top-0 z-10 border-gray-200 bg-gray-50  dark:bg-gray-800 dark:border-gray-700">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <div>
-            {/* <img
-              src={assets.logo}
-              alt="icon"
-              className="w-[5rem] md:w-[7rem]"
-            /> */}
             <Link to="/">
               <h1 className="font-extrabold text-[1.5rem] md:text-[1.9rem] text-red-500">
                 Hunger.
@@ -45,7 +59,7 @@ const Navbar = ({ setShowLogin }) => {
             </Link>
           </div>
 
-          <form className="max-w-md mx-auto hidden md:block">
+          {/* <form className="max-w-md mx-auto hidden md:block">
             <div className="relative">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg
@@ -69,10 +83,12 @@ const Navbar = ({ setShowLogin }) => {
                 id="default-search"
                 className="block w-full p-3 ps-10 text-xs text-gray-900 border border-gray-300 rounded-full bg-gray-50 outline-none focus:ring-orange-500 focus:border-orange-500 "
                 placeholder="Search foods..."
+                onChange={(e) => setSearchQuery(e.target.value)}
+                value={searchQuery}
                 required
               />
             </div>
-          </form>
+          </form> */}
 
           <div className="flex items-center justify-center">
             <div className="relative mr-4">
@@ -154,7 +170,7 @@ const Navbar = ({ setShowLogin }) => {
 
           {toggle && (
             <div
-              className="absolute top-[3.5rem] md:top-[4rem] right-[0rem] w-full"
+              className="absolute top-[3.5rem] md:top-[3.8rem] right-[0rem] w-full"
               id="navbar-hamburger"
             >
               <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
@@ -195,18 +211,18 @@ const Navbar = ({ setShowLogin }) => {
                   Mobile App
                 </a>
                 {token && (
-                  <a
-                    href="#explore-mobile-app"
+                  <p
                     className={`block cursor-pointer py-2 px-3 text-gray-700 rounded ${
                       animation === "Order" ? "bg-orange-200" : ""
                     } hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white`}
                     onClick={() => {
                       setAnimation("Order");
                       setToggle(!toggle);
+                      navigate("/myOrders");
                     }}
                   >
                     My Order
-                  </a>
+                  </p>
                 )}
                 <a
                   href="#explore-contact"

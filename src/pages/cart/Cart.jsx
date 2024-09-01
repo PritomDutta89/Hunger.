@@ -5,9 +5,10 @@ import { useDataContext } from "../../context/DataContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BASE_URL } from "../../services/helper";
 
 const Cart = () => {
-  const { allFoods, removeToCart, cartItems, getTotalCartAmt } =
+  const { allFoods, removeToCart, cartItems, getTotalCartAmt, token } =
     useDataContext();
   const navigate = useNavigate();
 
@@ -51,7 +52,8 @@ const Cart = () => {
                         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                       >
                         <img
-                          src={`http://localhost:4000/images/${item.image}`}
+                          // src={`${BASE_URL}/images/${item.image}`}
+                          src={item.image}
                           alt="icon"
                           className="w-[4rem] rounded-md"
                         />
@@ -132,7 +134,18 @@ const Cart = () => {
             onClick={() =>
               getTotalCartAmt() > 0
                 ? navigate("/order")
-                : toast.warn("Please add some item", {
+                : token
+                ? toast.warn("Please add some item", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                  })
+                : toast.warn("Please log in", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
