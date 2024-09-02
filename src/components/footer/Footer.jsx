@@ -38,7 +38,7 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <hr className="h-[1px] w-[100%] my-7 bg-gray-500 border-0 dark:bg-gray-700" />
+        <hr className="h-[1px] w-[100%] my-7 bg-gray-500 border-0 " />
         <p className="">Copyright 2024 @ Hunger.com - All Right Reserved.</p>
       </div>
     </>

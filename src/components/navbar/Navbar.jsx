@@ -49,7 +49,7 @@ const Navbar = ({ setShowLogin }) => {
 
   return (
     <>
-      <nav className="sticky top-0 z-10 border-gray-200 bg-gray-50  dark:bg-gray-800 dark:border-gray-700">
+      <nav className="sticky top-0 z-10 border-gray-200 bg-gray-50">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <div>
             <Link to="/">
@@ -125,7 +125,7 @@ const Navbar = ({ setShowLogin }) => {
               //     JL
               //   </span>
               // </div>
-              <div className="relative w-9 h-9 mr-4 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+              <div className="relative w-9 h-9 mr-4 overflow-hidden bg-gray-100 rounded-full">
                 <svg
                   className="absolute w-11 h-11 text-gray-400 -left-1"
                   fill="currentColor"
@@ -144,7 +144,7 @@ const Navbar = ({ setShowLogin }) => {
             <button
               data-collapse-toggle="navbar-hamburger"
               type="button"
-              className=" inline-flex items-center justify-center p-2 w-7 md:w-9 h-7 md:h-9 text-sm text-gray-800 border hover:bg-slate-100 rounded-lg dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className=" inline-flex items-center justify-center p-2 w-7 md:w-9 h-7 md:h-9 text-sm text-gray-800 border hover:bg-slate-100 rounded-lg"
               aria-controls="navbar-hamburger"
               aria-expanded="false"
               onClick={() => setToggle(!toggle)}
@@ -173,12 +173,12 @@ const Navbar = ({ setShowLogin }) => {
               className="absolute top-[3.5rem] md:top-[3.8rem] right-[0rem] w-full"
               id="navbar-hamburger"
             >
-              <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+              <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 ">
                 <Link
                   to="/"
                   className={`block cursor-pointer py-2 px-3 text-gray-700 hover:bg-gray-100 ${
                     animation === "Home" ? "bg-orange-200" : ""
-                  } rounded dark:bg-blue-600`}
+                  } rounded `}
                   onClick={() => {
                     setAnimation("Home");
                     setToggle(!toggle);
@@ -190,7 +190,7 @@ const Navbar = ({ setShowLogin }) => {
                   href="#explore-menu"
                   className={`block cursor-pointer py-2 px-3 text-gray-700 rounded hover:bg-gray-100 ${
                     animation === "Menu" ? "bg-orange-200" : ""
-                  } dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                  } `}
                   onClick={() => {
                     setAnimation("Menu");
                     setToggle(!toggle);
@@ -202,7 +202,7 @@ const Navbar = ({ setShowLogin }) => {
                   href="#explore-mobile-app"
                   className={`block cursor-pointer py-2 px-3 text-gray-700 rounded ${
                     animation === "Mobile" ? "bg-orange-200" : ""
-                  } hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white`}
+                  } hover:bg-gray-100 `}
                   onClick={() => {
                     setAnimation("Mobile");
                     setToggle(!toggle);
@@ -214,7 +214,7 @@ const Navbar = ({ setShowLogin }) => {
                   <p
                     className={`block cursor-pointer py-2 px-3 text-gray-700 rounded ${
                       animation === "Order" ? "bg-orange-200" : ""
-                    } hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white`}
+                    } hover:bg-gray-100 `}
                     onClick={() => {
                       setAnimation("Order");
                       setToggle(!toggle);
@@ -228,7 +228,7 @@ const Navbar = ({ setShowLogin }) => {
                   href="#explore-contact"
                   className={`block cursor-pointer py-2 px-3 text-gray-700 rounded ${
                     animation === "Contact" ? "bg-orange-200" : ""
-                  } hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                  } hover:bg-gray-100 `}
                   onClick={() => {
                     setAnimation("Contact");
                     setToggle(!toggle);
@@ -240,7 +240,7 @@ const Navbar = ({ setShowLogin }) => {
                   <div
                     className={`block cursor-pointer py-2 px-3 text-gray-700 rounded ${
                       animation === "Logout" ? "bg-orange-200" : ""
-                    } hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white`}
+                    } hover:bg-gray-100 `}
                     onClick={() => {
                       setAnimation("Logout");
                       setToggle(!toggle);

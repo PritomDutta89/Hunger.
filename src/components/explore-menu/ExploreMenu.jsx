@@ -44,7 +44,7 @@ const ExploreMenu = ({ category, setCategory }) => {
             </div>
           ))}
         </div>
-        <hr className="h-[2px] my-4 bg-[#e2e2e2] border-0 dark:bg-gray-700" />
+        <hr className="h-[2px] my-4 bg-[#e2e2e2] border-0 " />
       </div>
     </>
   );

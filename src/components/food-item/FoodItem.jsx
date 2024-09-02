@@ -10,7 +10,7 @@ const FoodItem = ({ item }) => {
   const { cartItems, setCartItems, addToCart, removeToCart } = useDataContext();
 
   return (
-    <div className="bg-white rounded-3xl shadow-xl dark:bg-gray-800 dark:border-gray-700 ">
+    <div className="bg-white rounded-3xl shadow-xl ">
       <div className="relative">
         {/* eslint-disable-next-line react/prop-types */}
         <img
@@ -53,7 +53,7 @@ const FoodItem = ({ item }) => {
           <img src={assets.rating_starts} alt="" className="w-[4rem]" />
         </div>
 
-        <p className="mb-2 font-normal text-[#676767] text-[1rem] dark:text-gray-400">
+        <p className="mb-2 font-normal text-[#676767] text-[1rem] ">
           {/* eslint-disable-next-line react/prop-types */}
           {item.description}
         </p>
